@@ -1,0 +1,12 @@
+logging:
+  level:
+    ROOT: INFO
+
+server:
+  port: 9090
+
+spring:
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+      fail-on-missing-creator-properties: true
