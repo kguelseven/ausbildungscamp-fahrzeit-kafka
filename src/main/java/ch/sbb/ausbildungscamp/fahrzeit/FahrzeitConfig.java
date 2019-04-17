@@ -27,6 +27,8 @@ import java.util.Map;
 @EnableKafka
 public class FahrzeitConfig {
 
+    private static final String BOOTSTRAP_SERVERS = "localhost:9092"; // "192.168.42.50:9092";
+
     @Bean
     public KafkaTemplate<String, String> kafkaTemplate(final ProducerFactory<String, String> producerFactory) {
         return new KafkaTemplate<>(producerFactory);
@@ -35,7 +37,7 @@ public class FahrzeitConfig {
     @Bean
     public ProducerFactory<String, String> producerFactory() {
         final Map<String, Object> props = new HashMap<>();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         return new DefaultKafkaProducerFactory<>(props);
@@ -52,7 +54,7 @@ public class FahrzeitConfig {
     @Bean
     public ConsumerFactory<Integer, String> consumerFactory() {
         final Map<String, Object> props = new HashMap<>();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
